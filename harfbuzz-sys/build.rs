@@ -31,6 +31,13 @@ fn main() {
         cfg.define("HAVE_CORETEXT", "1");
     }
 
+    if target.contains("android") {
+        cfg
+            .cpp_link_stdlib("c++_static")
+            .flag("-fno-exceptions")
+            .flag("-fno-rtti");
+    }
+
     cfg.compile("embedded_harfbuzz");
 
     let out_dir = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
